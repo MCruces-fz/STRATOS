@@ -75,12 +75,12 @@ T9, direction9, var9 = PCA_9(T)
 T_normal=np.vstack((T_9[0:cut1,:] , T_9[cut2:-1, :]))
 T_an=T_9[cut1:cut2, :]
     
-#plot_37(direction, var, year)
-#plot_9(direction9, var9, year)
-#plot_aemet(direction7, var7, year)
+plot_37(direction, var, year)
+plot_9(direction9, var9, year)
+plot_aemet(direction7, var7, year)
 
 direction_id, var_id, direction_id31, var_id31, T_id = ideal(file_param, T)
-#plot_id, plot_idcut = plot_ideal(direction_id, var_id, direction_id31, var_id31, year)
+plot_id, plot_idcut = plot_ideal(direction_id, var_id, direction_id31, var_id31, year)
 
 T9_id=np.hstack((T_id[:,0].reshape(-1,1),T_id[:,2].reshape(-1,1),T_id[:,6].reshape(-1,1),T_id[:,8].reshape(-1,1),T_id[:,11].reshape(-1,1),T_id[:,15].reshape(-1,1),T_id[:,17].reshape(-1,1), T_id[:,23].reshape(-1,1), T_id[:,36].reshape(-1,1)))
        
@@ -88,7 +88,7 @@ T9_id=np.hstack((T_id[:,0].reshape(-1,1),T_id[:,2].reshape(-1,1),T_id[:,6].resha
 T_desv_mean, sigma, k, skew = hist_analysis(T_id, T, year, cut1, cut2)
 corr(T_desv_mean, sigma, k, skew, year, cut1, cut2) #correlation plots
         
-#PCs = PC_evolution(T9, direction_id, year, cut1, cut2) #PC (real data) evolution (time)
-#PCs_id = PC_evol_ideal(T9, T9_id, direction_id, year, cut1, cut2)
-#PCs = id_vs_real_PC(T9, direction_id, PCs_id, year, cut1, cut2)
+PCs = PC_evolution(T9, direction_id, year, cut1, cut2) #PC (real data) evolution (time)
+PCs_id = PC_evol_ideal(T9, T9_id, direction_id, year, cut1, cut2)
+PCs = id_vs_real_PC(T9, direction_id, PCs_id, year, cut1, cut2)
 
