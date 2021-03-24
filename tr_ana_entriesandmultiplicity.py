@@ -7,13 +7,11 @@ author: Martina Feijoo Fontán
 analysis of tragaldabas entries excluding borders
 """
 
-import sklearn.decomposition as skdec
 import numpy                 as np
 import matplotlib.pyplot     as plt
 import scipy.optimize        as sco
 from   matplotlib            import cm
 from   matplotlib.colors     import LogNorm
-from   sklearn.preprocessing import StandardScaler
 from   scipy                 import ndimage
 
 
@@ -85,7 +83,7 @@ def map_marginal(j):
     ax_histx.yaxis.set_label_coords(0., 1.1)
     ax_histx.set_title(r'<x> = ' + str(np.round(mean_x[j],2)) + ',  $\sigma_{x}$ = ' + str(np.round(std_x[j],3)) , fontsize=20)
     
-    plt.show()
+    # plt.show()
     return 
 
 
@@ -306,7 +304,7 @@ columns = '# YYDOYHHMMSS, T1TotHits, T1XCoG, T1YCoG, T1sXGoG, T1sYCoG, T1MDLen, 
 f.write('\n')
 f.write(columns)
 l = [str(T_tot[i]) + ' ' \
-            + str(cm_write[i][0]) + ' ' + str(cm_write[i][1]) + ' ' + str(np.round(std_x[i], 2)) + ' ' + str(np.round(std_y[i],2)) + ' ' + str(np.round(lenght_main[i],2)) + ' ' + str(np.round(angle[i],2)) + ' ' \
+            + str(cm_write[i][0]) + ' ' + str(cm_write[i][1]) + ' ' + str(np.round(std_x[i], 2)) + ' ' + str(np.round(std_y[i],2)) + ' ' + str(np.round(lenght_main[i],2)) + ' ' + str(np.round(angle_45[i],2)) + ' ' \
             + str(np.round(popt[i][0], 2)) + ' '+ str(np.round(popt[i][1], 2)) + ' ' + str(np.round(Nleft[i], 2)) +' ' + str(np.round(Nright[i],2)) for i in range(3)]
     
 f.write(str(data_mul[2:13]) + ' ' + str(l[0]) + ' ' + str(l[1]) + ' ' + str(l[2]) + ' ' + '\n')     
