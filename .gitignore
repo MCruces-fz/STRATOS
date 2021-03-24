@@ -2,3 +2,5 @@
 __pycache__/
 data/*
 !data/README.md
+*_cell_entries.dat
+*_plane_mult.dat
