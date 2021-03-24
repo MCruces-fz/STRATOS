@@ -13,6 +13,7 @@ import scipy.optimize        as sco
 from   matplotlib            import cm
 from   matplotlib.colors     import LogNorm
 from   scipy                 import ndimage
+from   os.path               import join    as join_path
 
 
 plt.close('all')
@@ -270,7 +271,7 @@ for j in range(3):
 
 #%% WRITING OUTPUT
 
-f = open("mul_" + str(data_mul[2:13]) + "_fit.txt","w+")
+f = open( join_path( "output_data", "mul_" + str(data_mul[2:13]) + "_fit.txt" ), "w+")
 f.write( '# yeardaytime Ndat CM_position lenght theta slope intercept Nleft Nright \n')
 
 for i in range(3):
@@ -281,7 +282,7 @@ for i in range(3):
             + str(popt[i][0]) +' '+ str(popt[i][1]) +' ' + str(Nleft[i]) +' '+ str(Nright[i]) + '\n')     
 f.close()
 
-f = open('tragaldabas_entries.txt', 'w+')
+f = open(join_path( 'output_data', 'tragaldabas_entries.txt'), 'w+')
 f.write('# Analysis of cell entries and multiplicities saved here for the 3 plains T1, T3 and T4 \n \
          # by columns we have the following, each plane is indicated before the corresponding magnitudes: \n \
          # YYDOYHHMMSS (yeardaytime): for example  20335001620 means year 2020, day 335, time 00:16:20 \n \
