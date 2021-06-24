@@ -23,6 +23,7 @@ from datetime import datetime
 import numpy as np
 
 from utils.dirs import ASCII_DATA_DIR
+from utils.footilities import decrease_entries
 from mulentry.chef import Chef
 
 reader = Chef(data_dir=ASCII_DATA_DIR)
@@ -49,6 +50,11 @@ reader.update(
 
 print("multiplic: ", reader.total_mult)
 print("total: ", reader.total_entries)
+
+substracted = decrease_entries(reader.total_entries)
+print("substracted: ", substracted)
+
+
 
 # TODO: Continue from line 184 in
 #  tr_ana_entriesandmultiplicity.pyt

@@ -24,6 +24,7 @@ License.
 
 import os
 import datetime
+import numpy as np
 
 
 def basename(file_path: str, extension: bool = False):
@@ -63,3 +64,25 @@ def date_from_filename(filename: str) -> datetime.datetime:
         datetime.date(yy, 1, 1) + datetime.timedelta(doy + 1),
         datetime.time(hour=hh, minute=mm, second=ss)
     )
+
+
+def decrease_entries(entries: np.array, preserve_size: bool = True) -> np.array:
+    """
+    Substracts minimum value of entries from inner region (avoiding
+        external crown)
+
+    :param entries: 2D array to be decreased.
+    :param preserve_size: If True (default) returns array with same
+        size. If False, returns array with inner reguin (substracting
+        external crown)
+    :return: 2D array with decreased entries.
+    """
+
+    if len(entries.shape) != 2:
+        raise Exception("Input array must be 2D.")
+
+    if preserve_size:
+        substracted = entries - np.min(entries[1:-1, 1:-1])
+    else:
+        substracted = entries[1:-1, 1:-1] - np.min(entries[1:-1, 1:-1])
+    return substracted.clip(min=0)
