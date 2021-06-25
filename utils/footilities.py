@@ -86,3 +86,31 @@ def decrease_entries(entries: np.array, preserve_size: bool = True) -> np.array:
     else:
         substracted = entries[1:-1, 1:-1] - np.min(entries[1:-1, 1:-1])
     return substracted.clip(min=0)
+
+
+def raw_moment(data, iord, jord):
+    nrows, ncols = data.shape
+    y, x = np.mgrid[:nrows, :ncols]
+    data = data * x**iord * y**jord
+    return data.sum()
+
+
+def intertial_axis(data):
+    """Calculate the x-mean, y-mean, and cov matrix of an image."""
+    data_sum = data.sum()
+    m10 = raw_moment(data, 1, 0)
+    m01 = raw_moment(data, 0, 1)
+    x_bar = m10 / data_sum
+    y_bar = m01 / data_sum
+    u11 = (raw_moment(data, 1, 1) - x_bar * m01) / data_sum
+    u20 = (raw_moment(data, 2, 0) - x_bar * m10) / data_sum
+    u02 = (raw_moment(data, 0, 2) - y_bar * m01) / data_sum
+    cov = np.array([[u20, u11], [u11, u02]])
+    return x_bar, y_bar, cov
+
+
+def main_direction(eigvals,eigvecs):
+    main_dir = eigvals[0]*eigvecs[:,0] + eigvals[1]*eigvecs[:,1]
+    if main_dir[0] / main_dir[1] < 0:
+        main_dir = eigvals[0]*eigvecs[:,0] - eigvals[1]*eigvecs[:,1]
+    return main_dir
