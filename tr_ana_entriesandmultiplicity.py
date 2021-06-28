@@ -26,6 +26,7 @@ from utils.dirs import ASCII_DATA_DIR
 from utils.footilities import decrease_entries, intertial_axis, main_direction
 from mulentry.chef import Chef
 from mulentry.calc import Calc
+from mulentry.represent import Represent
 
 
 reader = Chef(data_dir=ASCII_DATA_DIR)
@@ -50,26 +51,7 @@ reader.update(
         plane_name="T1"
         )
 
-# print("multiplic: ", reader.total_mult)
-# print("total: ", reader.total_entries)
+calc = Calc(reader)
 
-
-
-substracted = decrease_entries(reader.total_entries)
-# print("substracted: ", substracted)
-
-mean_x = np.mean(substracted, axis=0)
-mean_y = np.mean(substracted, axis=1)
-std_x = np.std(substracted, axis=0)
-std_y = np.std(substracted, axis=1)
-
-# covariance, eigvals, main direction, etc
-xbar, ybar, cov = intertial_axis(reader.total_entries)
-eigvals, eigvecs = np.linalg.eigh(cov)
-main_dir = main_direction(eigvals, eigvecs)
-lenght_main = np.sqrt(main_dir[0]**2 + main_dir[1]**2)
-angle = np.arctan(main_dir[1] / main_dir[0])
-angle_45 = angle - np.pi/4
-
-
+represent = Represent(calc)
 
